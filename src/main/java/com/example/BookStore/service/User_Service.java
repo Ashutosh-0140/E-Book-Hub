@@ -23,4 +23,9 @@ public class User_Service {
         return ur1.save(User);
 
     }
+
+    public user userRegister(user u1){
+        u1.setRole("USER");
+        return ur1.save(u1);
+    }
 }

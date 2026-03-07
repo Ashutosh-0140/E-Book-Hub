@@ -1,5 +1,7 @@
 package com.example.BookStore.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.example.BookStore.db.Books;
 import com.example.BookStore.service.Book_Service;
 import jakarta.validation.Valid;
@@ -8,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -34,18 +35,18 @@ public class bookController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
-    public List<Books> showAllBook(Books book){
-        return service.getAllBook(book);
-    }
+//    @GetMapping
+//    public List<Books> showAllBook(Books book){
+//        return service.getAllBook(book);
+//    }
 
     @PostMapping("/{Id}")
     public Books renueBook(@PathVariable Long Id,@Valid @RequestBody Books book){
         return service.updateBook(Id, book);
     }
 
-    @GetMapping("/search")
-    public List<Books> searchBookByName(@RequestParam String bookName){
-        return service.SearchBook(bookName);
+    @GetMapping
+    public Page<Books> getAllPage(Pageable page){
+        return service.getAllPage(page);
     }
 }
