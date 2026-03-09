@@ -27,10 +27,9 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // disable CSRF for APIs
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/cart/**").permitAll() // allow public access
+                        .requestMatchers("/auth/**", "/cart/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/book/").hasAnyRole("USER","ADMIN")
-
+                        .requestMatchers("/book/**").hasAnyRole("USER","ADMIN")
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

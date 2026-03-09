@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -29,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest login, String role) {
+    public Map<String, String> login(@RequestBody LoginRequest login) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         login.getUserName(),
@@ -37,8 +39,9 @@ public class AuthController {
                 )
         );
 
-        // If authentication succeeds, generate JWT
-        String token = jwtUtil.generateToken(login.getUserName(), role);
-        return token;
+        user existingUser = userService.findByUserName(login.getUserName());
+        String token = jwtUtil.generateToken(existingUser.getUserName(), existingUser.getRole());
+
+        return Map.of("token", token);
     }
 }

@@ -14,4 +14,5 @@ public class user {
     private String password;
     private String mailId;
     private String role;
+
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/{book}")
+@RequestMapping("/book")
 public class bookController {
     @Autowired
     private Book_Service service;

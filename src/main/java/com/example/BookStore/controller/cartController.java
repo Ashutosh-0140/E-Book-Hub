@@ -13,7 +13,7 @@ public class cartController {
     @Autowired
     private cartService service;
 
-    @PostMapping
+    @PostMapping("/add")
     public Cart addToCart(@RequestBody Cart cart) {
         return service.addToCart(cart);
     }
